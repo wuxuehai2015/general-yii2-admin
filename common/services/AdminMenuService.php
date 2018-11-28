@@ -69,7 +69,8 @@ class AdminMenuService extends MenuHelper
                 if (isset($data['group']) && !empty($data['group'])) {
                     $s_menu = [
                         'name' => $menu['name'],
-                        'url' => $menu['route']
+                        'url' => $menu['route'],
+                        'options' => $data
                     ];
 
                     if (isset($tabMenu[$array_route[1]])) {

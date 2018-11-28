@@ -32,9 +32,9 @@ class SmsService extends BaseObject
                 'file' => '/tmp/easy-sms.log',
             ],
             'aliyun' => [
-                'access_key_id' => 'LTAIZJGuj5sUX6w4',
-                'access_key_secret' => '7EIrQi8ZZKPmxj3ksxguAU8pbMnbGd',
-                'sign_name' => '碳维基',
+                'access_key_id' => '',
+                'access_key_secret' => '',
+                'sign_name' => '',
             ],
         ],
     ];

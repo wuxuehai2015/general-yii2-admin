@@ -191,12 +191,14 @@ class Menu extends \yii\widgets\Menu
      */
     protected function isItemActive($item)
     {
-        if (isset($item["url"]) && is_array($item["url"]) && isset($item["url"][0])) {
-            if (strpos($this->route, ltrim($item["url"][0], '/')) !== false) {
-                return true;
-            }
-            return false;
+        $controller_id = Yii::$app->controller->id;
+
+        $include = $item['options']['include'] ?? [];
+
+        if (in_array($controller_id, $include)) {
+            return true;
         }
+
         return false;
     }
 }

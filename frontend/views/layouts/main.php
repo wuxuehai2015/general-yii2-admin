@@ -20,13 +20,6 @@ AppAsset::register($this);
 
     <script>
         var _csrf = '<?=Yii::$app->request->getCsrfToken()?>';
-        var get_cate_list_by_pid_url = '<?=\yii\helpers\Url::to(['/site/get-cate-list-by-pid'])?>';
-        var delete_document_url = '<?=\yii\helpers\Url::to(['/user/delete-document'])?>';
-        var commit_comment_url = '<?=\yii\helpers\Url::to(['/view/create-comment'])?>';
-        var get_comment_list_url = '<?=\yii\helpers\Url::to(['/view/get-comment'])?>';
-        var get_comment_list_url = '<?=\yii\helpers\Url::to(['/view/get-comment'])?>';
-        var create_favorite_url = '<?=\yii\helpers\Url::to(['/view/create-favorite'])?>';
-
         function changeURLArg(url,arg,arg_val){
             var pattern=arg+'=([^&]*)';
             var replaceText=arg+'='+arg_val;
@@ -56,10 +49,6 @@ AppAsset::register($this);
 </div>
 <?=$this->render('footer')?>
 <?php $this->endBody() ?>
-
-<div style="display: none">
-    <?=SystemConfig::getValueByName('cnzz')?>
-</div>
 </body>
 </html>
 <?php $this->endPage() ?>

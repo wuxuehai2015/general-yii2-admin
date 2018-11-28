@@ -15,6 +15,11 @@ return [
         "admin" => [
             "class" => "mdm\admin\Module",
             "viewPath" => "@backend/views/rbac_admin",
+            'controllerMap' => [
+                'menu' => [
+                    'class' => 'backend\controllers\rbac\MenuController'
+                ],
+            ]
         ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module'
