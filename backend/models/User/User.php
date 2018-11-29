@@ -22,17 +22,17 @@ class User extends \common\models\User
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['username', 'mobile'], 'required'],
-            ['add_point', 'required', 'skipOnEmpty' => true],
             ['username', 'string', 'min' => 2],
             ['mobile', 'unique'],
+            [['auth_key', 'email'], 'default', 'value' => ''],
             ['password', 'string', 'min' => 6, 'max' => 50, 'skipOnEmpty' => true],
-            [['username', 'mobile', 'remark', 'add_point',  'password', 'is_admin', 'allow_upload_doc'], 'safe']
+            [['username', 'mobile', 'remark', 'password'], 'safe']
         ];
     }
 
     public function beforeSave($insert)
     {
-        if(!empty($this->password)){
+        if (!empty($this->password)) {
             $this->setPassword($this->password);
         }
 

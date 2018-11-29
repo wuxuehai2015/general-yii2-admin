@@ -49,31 +49,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ],
                 [
-                    'label' => '积分',
-                    'format' => 'raw',
-                    'value' => function($model){
-                        return intval($model->points);
-                    }
-                ],
-                [
                     'label' => '状态',
                     'format' => 'raw',
                     'value' => function($model){
                         return \backend\models\User\User::getStatusName($model->status);
-                    }
-                ],
-                [
-                    'label' => '是否管理员',
-                    'format' => 'raw',
-                    'value' => function($model){
-                        return $model->is_admin ? '是' : '否';
-                    }
-                ],
-                [
-                    'label' => '是否允许前端上传文档',
-                    'format' => 'raw',
-                    'value' => function($model){
-                        return $model->allow_upload_doc ? '是' : '否';
                     }
                 ],
                 [

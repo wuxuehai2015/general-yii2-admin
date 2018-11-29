@@ -21,7 +21,7 @@ $fieldOptions2 = [
 
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b><?=\common\models\SystemConfig\SystemConfig::getValueByName('site_name')?>-管理后台</a>
+        <a href="#"><b><?=\common\models\SystemConfig\SystemConfig::getValueByKey('site_name')?>-管理后台</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">

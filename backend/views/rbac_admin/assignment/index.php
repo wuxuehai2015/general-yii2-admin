@@ -18,7 +18,7 @@ $columns = [
     [
         'label' => '用户名',
         'value' => function($model){
-            return "( $model->mobile ) {$model->username}";
+            return "{$model->username}";
         }
     ],
 ];
@@ -35,7 +35,6 @@ $columns[] = [
     ]
 ];
 
-$dataProvider->query->andWhere(['is_admin' => 1]);
 //    ->andWhere(['not in', 'id', 1])
 ?>
 <div class="assignment-index box box-primary">

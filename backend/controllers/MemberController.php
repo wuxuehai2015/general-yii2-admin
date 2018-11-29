@@ -52,7 +52,7 @@ class MemberController extends BaseController
     public function actionCreate()
     {
         $model = new User();
-        $model->avatar = SystemConfig::getValueByName('default_avatar');
+        $model->avatar = SystemConfig::getValueByKey('default_avatar');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -77,25 +77,6 @@ class MemberController extends BaseController
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * @param $id
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException
-     */
-    public function actionAddPoint($id)
-    {
-        $model = $this->findModel($id);
-        if (Yii::$app->request->isPost) {
-            $model->load(Yii::$app->request->post());
-            UserPointHistory::change($model, $model->add_point, UserPointHistory::TYPE_BACKEND_ADD);
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('add-point', [
                 'model' => $model,
             ]);
         }
@@ -131,46 +112,6 @@ class MemberController extends BaseController
                     'header' => '状态',
                     'value' => function($model){
                         return $model->status ? '正常' : '封禁';
-                    }
-                ],
-                [
-                    'attribute' => 'points',
-                    'format' => 'text',
-                    'header' => '用户积分',
-                ],
-                [
-                    'attribute' => 'allow_upload_doc',
-                    'header' => '允许上传文档',
-                    'value' => function($model){
-                        return $model->allow_upload_doc ? '是' : '否';
-                    }
-                ],
-                [
-                    'attribute' => 'is_admin',
-                    'header' => '后台管理员',
-                    'value' => function($model){
-                        return $model->is_admin ? '是' : '否';
-                    }
-                ],
-                [
-                    'attribute' => 'wx_open_id',
-                    'header' => '绑定微信',
-                    'value' => function($model){
-                        return $model->wx_open_id ? '是' : '否';
-                    }
-                ],
-                [
-                    'attribute' => 'wb_open_id',
-                    'header' => '绑定微博',
-                    'value' => function($model){
-                        return $model->wb_open_id ? '是' : '否';
-                    }
-                ],
-                [
-                    'attribute' => 'login_continuity_count',
-                    'header' => '联系签到天数',
-                    'value' => function($model){
-                        return $model->login_continuity_count;
                     }
                 ],
                 [

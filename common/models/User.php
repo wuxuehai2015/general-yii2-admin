@@ -22,15 +22,9 @@ use yii\web\IdentityInterface;
  * @property string $password_reset_token
  * @property string $email
  * @property string $auth_key
- * @property string $wb_open_id
- * @property string $wx_open_id
  * @property integer $status
  * @property string $last_ip
  * @property integer $last_login_at
- * @property integer $points
- * @property integer $is_admin
- * @property integer $allow_upload_doc
- * @property integer $login_continuity_count
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
@@ -258,45 +252,5 @@ class User extends BaseModel implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
-    }
-    
-    public static function countPoint()
-    {
-        return self::find()->sum('points');
-    }
-
-    /**
-     * @param int $days
-     * @return array
-     */
-    public static function statisticsRegister($days = 15)
-    {
-        $data = [];
-        $currentDateTime = strtotime(date('Ymd'));
-        for ($i = 0; $i < $days; $i++) {
-            if ($i == 0) {
-                $start = $currentDateTime;
-            } else {
-                $start = strtotime("-{$i}day", $currentDateTime);
-            }
-
-            $query = self::find()
-                ->select(new Expression("count(id) as number"));
-
-            $item = $query->andWhere(['between', 'created_at', $start, $start + 60 * 60 * 24])
-                ->asArray()
-                ->one();
-
-            $data[$i] = [
-                'date' => date('m月d日', $start),
-                'number' => $item['number']
-            ];
-
-        }
-
-        sort($data, SORT_DESC);
-
-        $data = ArrayHelper::map($data, 'date', 'number');
-        return $data;
     }
 }

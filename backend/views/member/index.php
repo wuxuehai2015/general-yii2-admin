@@ -64,36 +64,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ],
                 [
-                    'label' => '用户积分',
-                    'attribute' => 'points',
-                    'format' => 'raw',
-                    'value' => function($model){
-                        return intval($model->points);
-                    }
-                ],
-                [
                     'label' => '用户状态',
                     'attribute' => 'status',
                     'format' => 'raw',
                     'filter' => Html::dropDownList('UserSearch[status]', $searchModel->status, ['' => '全部'] + \common\models\User::getStatusOptions(), ['class' => 'form-control']),
                     'value' => function($model){
                         return \common\models\User::getStatusName($model->status);
-                    }
-                ],
-                [
-                    'label' => '管理员',
-                    'format' => 'raw',
-                    'filter' => Html::dropDownList('UserSearch[is_admin]', $searchModel->is_admin, ['' => '全部'] + [0 => '否', 1 => '是'], ['class' => 'form-control']),
-                    'value' => function($model){
-                        return $model->is_admin ? '是' : '否';
-                    }
-                ],
-                [
-                    'label' => '前端上传文档',
-                    'format' => 'raw',
-                    'filter' => Html::dropDownList('UserSearch[allow_upload_doc]', $searchModel->allow_upload_doc, ['' => '全部'] + [0 => '否', 1 => '是'], ['class' => 'form-control']),
-                    'value' => function($model){
-                        return $model->allow_upload_doc ? '是' : '否';
                     }
                 ],
                 [
@@ -114,16 +90,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 [
                     'class' => 'yii\grid\ActionColumn',
-                    'template' => \mdm\admin\components\Helper::filterActionColumn('{view}{update}{add-point}'),
+                    'template' => \mdm\admin\components\Helper::filterActionColumn('{view}{update}'),
                     'buttons' => [
                         'view' => function ($url, $model, $key) {
                             return \yii\helpers\Html::a("<i class='fa fa-fw fa-eye'></i>查看", ['view', 'id' => $key], ['class' => 'btn btn-primary']);
                         },
                         'update' => function ($url, $model, $key) {
                             return \yii\helpers\Html::a("<i class='fa fa-fw fa-edit'></i>编辑", ['update', 'id' => $key], ['class' => 'btn btn-primary']);
-                        },
-                        'add-point' => function ($url, $model, $key) {
-                            return \yii\helpers\Html::a("<i class='fa fa-plus'></i>增加积分", ['add-point', 'id' => $key], ['class' => 'btn btn-primary']);
                         },
                     ],
                 ]

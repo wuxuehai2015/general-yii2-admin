@@ -17,7 +17,7 @@ class MenuController extends \mdm\admin\controllers\MenuController
             $post = \Yii::$app->request->post();
             $data = [
                 'icon' => $post['data']['icon'],
-                'include' => implode("\r\n", $post['data']['include'])
+                'include' => explode("\r\n", $post['data']['include'])
             ];
 
             if (isset($data['data']['sub']) && $data['data']['sub']) {
