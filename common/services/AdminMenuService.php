@@ -9,6 +9,7 @@ namespace common\services;
 
 use mdm\admin\components\MenuHelper;
 use Yii;
+use yii\helpers\Json;
 
 class AdminMenuService extends MenuHelper
 {
@@ -19,7 +20,7 @@ class AdminMenuService extends MenuHelper
     public static function getLeftAssignedMenu()
     {
         return MenuHelper::getAssignedMenu(Yii::$app->user->id, null, function ($menu){
-            $data = json_decode($menu['data'], true);
+            $data = Json::decode($menu['data'], true);
             $items = $menu['children'];
             $return = [
                 'label' => $menu['name'],
@@ -49,7 +50,7 @@ class AdminMenuService extends MenuHelper
     {
         $tabMenu = [];
         MenuHelper::getAssignedMenu(Yii::$app->user->id, null, function ($menu) use (&$tabMenu) {
-            $data = json_decode($menu['data'], true);
+            $data = Json::decode($menu['data'], true);
             $items = $menu['children'];
             $return = [
                 'label' => $menu['name'],

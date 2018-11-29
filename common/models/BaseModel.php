@@ -30,18 +30,9 @@ class BaseModel extends ActiveRecord
         ];
     }
 
-    public function getHtmlError()
-    {
-        $htmlError = '';
-        if ($this->hasErrors()) {
-            foreach ($this->getFirstErrors() as $error) {
-                $htmlError .= '<br/>' . $error;
-            }
-        }
-
-        return $htmlError;
-    }
-
+    /**
+     * @return array
+     */
     public static function getStatusOptions()
     {
         return [
@@ -50,20 +41,19 @@ class BaseModel extends ActiveRecord
         ];
     }
 
+    /**
+     * @param $status
+     * @return mixed
+     */
     public static function getStatusName($status)
     {
         $item = static::getStatusOptions();
         return ArrayHelper::getValue($item, $status, '无');
     }
 
-    public static function getStatusOptionsByHtml()
-    {
-        return [
-            self::STATUS_INACTIVE => '<strong class="text-danger">关闭</strong>',
-            self::STATUS_ACTIVE => '<strong class="text-success">启用</strong>',
-        ];
-    }
-
+    /**
+     * @return int|string
+     */
     public static function count()
     {
         return static::find()->where(['status' => self::STATUS_ACTIVE])->count();
@@ -79,5 +69,13 @@ class BaseModel extends ActiveRecord
     {
         $info = static::find()->where(['id' => $id])->cache(60)->asArray()->one();
         return ArrayHelper::getValue($info, $field, '');
+    }
+
+    /**
+     * @return \yii\caching\CacheInterface
+     */
+    public static function getCache()
+    {
+        return \Yii::$app->cache;
     }
 }

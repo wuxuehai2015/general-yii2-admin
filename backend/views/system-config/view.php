@@ -26,10 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-                'id',
-                'key',
-                'name',
-                'value:ntext',
+                ['label' => 'id', 'format' => 'raw', 'attribute' => 'id', 'value' => function($model){return $model->id;}],
+                ['label' => 'key', 'format' => 'raw', 'attribute' => 'key', 'value' => function($model){return $model->key;}],
+                ['label' => 'name', 'format' => 'raw', 'attribute' => 'name', 'value' => function($model){return $model->name;}],
+                ['label' => 'value', 'format' => 'raw', 'attribute' => 'value', 'value' => function($model){return $model->value;}],
+                ['label' => 'created_at', 'format' => 'raw', 'attribute' => 'created_at', 'value' => function($model){return $model->created_at;}],
+                ['label' => 'updated_at', 'format' => 'raw', 'attribute' => 'updated_at', 'value' => function($model){return $model->updated_at;}],
             ],
         ]) ?>
     </div>

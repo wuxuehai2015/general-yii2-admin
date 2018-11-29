@@ -13,11 +13,11 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     <div class="box-body table-responsive">
 
-        <?= $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'key')->textInput(['maxlength' => true])->label('KEY') ?>
 
-        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('名') ?>
 
-        <?= $form->field($model, 'value')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'value')->textInput(['maxlength' => true])->label('值') ?>
 
     </div>
     <div class="box-footer">

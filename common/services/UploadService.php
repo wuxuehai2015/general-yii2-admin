@@ -52,7 +52,7 @@ class UploadService extends BaseObject
             }
 
             if (!file_exists(Yii::$app->params['uploadPath'] . $this->savePath)) {
-                mkdir(Yii::$app->params['uploadPath'] . $this->savePath);
+                mkdir(Yii::$app->params['uploadPath'] . $this->savePath, true);
             }
 
             //文件记录入库

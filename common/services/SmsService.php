@@ -14,35 +14,15 @@ class SmsService extends BaseObject
 {
     public $error;
 
-    public $config = [
-        // HTTP 请求的超时时间（秒）
-        'timeout' => 5.0,
-        // 默认发送配置
-        'default' => [
-            // 网关调用策略，默认：顺序调用
-            'strategy' => \Overtrue\EasySms\Strategies\OrderStrategy::class,
-            // 默认可用的发送网关
-            'gateways' => [
-                'aliyun',
-            ],
-        ],
-        // 可用的网关配置
-        'gateways' => [
-            'errorlog' => [
-                'file' => '/tmp/easy-sms.log',
-            ],
-            'aliyun' => [
-                'access_key_id' => '',
-                'access_key_secret' => '',
-                'sign_name' => '',
-            ],
-        ],
-    ];
+
+    public static function getConfig()
+    {
+        return \Yii::$app->params['smsConfig'];
+    }
 
     public function sendVerifyCode($mobile, $code)
     {
-        $easySms = new EasySms($this->config);
-
+        $easySms = new EasySms(self::getConfig());
         try {
             $res = $easySms->send($mobile, [
                 'content' => "验证码{$code}，您正在进行身份验证，打死不要告诉别人哦！",
