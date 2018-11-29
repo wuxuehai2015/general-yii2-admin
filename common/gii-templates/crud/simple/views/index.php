@@ -29,16 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $generator->enablePjax ? "    <?php Pjax::begin(); ?>\n" : ''
     ?>
     <div class="box-header with-border">
-        <?= "<?= " ?>
-        Html::a(<?= $generator->generateString('Create') ?>
-        ,
-        ['create'],
-        ['class'
-        =>
-        'btn
-        btn-success
-        btn-flat'])
-        ?>
+        <?= "<?php if(\mdm\admin\components\Helper::checkRoute('create')) { ?>\n"?>
+            <?= "<?= " ?>Html::a(<?= $generator->generateString('Create') ?>, ['create'], ['class' =>'btn btn-success btn-flat']) ?>
+        <?= "<?php } ?>\n" ?>
     </div>
     <div class="box-body table-responsive">
         <?php if (!empty($generator->searchModelClass)): ?>
@@ -46,11 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php endif;
 
         if ($generator->indexWidgetType === 'grid'):
-            echo "        <?= " ?>GridView::widget([
+            echo "<?= " ?>GridView::widget([
             'dataProvider' => $dataProvider,
             <?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n            'layout' => \"{items}\\n{summary}\\n{pager}\",\n            'columns' => [\n" : "'layout' => \"{items}\\n{summary}\\n{pager}\",\n            'columns' => [\n"; ?>
-            ['class' => 'yii\grid\SerialColumn'],
-
             <?php
             $count = 0;
             if (($tableSchema = $generator->getTableSchema()) === false) {
@@ -65,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 foreach ($tableSchema->columns as $column) {
                     $format = $generator->generateColumnFormat($column);
                     if (++$count < 6) {
-                        echo "                ['label' => '" . $column->name . "', 'format' => 'raw', 'attribute' => '" . $column->name . "', 'value' => function(\$model){return \$model->" . $column->name . ";}],\n";
+                        echo "                [\n                    'label' => '" . $column->name . "',\n                    'format' => 'raw',\n                    'attribute' => '" . $column->name . "', \n                    'value' => function(\$model) {\n                         return \$model->" . $column->name . ";\n                    }\n                ],\n";
                     } else {
                         echo "                // '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
                     }
@@ -74,31 +65,28 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
 
             [
-            'class' => 'yii\grid\ActionColumn',
-            'template' => \mdm\admin\components\Helper::filterActionColumn('{view}{update}{delete}'),
-            'buttons' => [
-            'view' => function ($url, $model, $key) {
-            return \yii\helpers\Html::a("
-            <i class='fa fa-fw fa-eye'></i>查看", ['view', 'id' => $key], ['class' => 'btn btn-primary']);
-                                           },
-                                           'update' => function ($url, $model, $key) {
-                                           return \yii\helpers\Html::a("
-            <i class='fa fa-fw fa-edit'></i>编辑", ['update', 'id' => $key], ['class' => 'btn btn-primary']);
-                                            },
-                                            'delete' => function ($url, $model, $key) {
-                                            return \yii\helpers\Html::a("
-            <i class='fa fa-fw fa-recycle'></i>删除", ['delete', 'id' => $key], [
-            'class' => 'btn btn-primary',
-            'data' => [
-            'confirm' => Yii::t('app', '是否确认删除?'),
-            'method' => 'post',
-            ]
-            ]);
-            }
+                'class' => 'yii\grid\ActionColumn',
+                'template' => \mdm\admin\components\Helper::filterActionColumn('{view}{update}{delete}'),
+                'buttons' => [
+                    'view' => function ($url, $model, $key) {
+                            return \yii\helpers\Html::a("<i class='fa fa-fw fa-eye'></i>查看", ['view', 'id' => $key], ['class' => 'btn btn-primary']);
+                    },
+                    'update' => function ($url, $model, $key) {
+                           return \yii\helpers\Html::a("<i class='fa fa-fw fa-edit'></i>编辑", ['update', 'id' => $key], ['class' => 'btn btn-primary']);
+                    },
+                    'delete' => function ($url, $model, $key) {
+                        return \yii\helpers\Html::a("<i class='fa fa-fw fa-recycle'></i>删除", ['delete', 'id' => $key],
+                                            [
+                                                'class' => 'btn btn-primary',
+                                                'data' => [
+                                                'confirm' => Yii::t('app', '是否确认删除?'),
+                                                'method' => 'post'
+                                            ]
+                        ]);
+                    }],
+                ],
             ],
-            ],
-            ],
-            ]); ?>
+        ]); ?>
         <?php else: ?>
             <?= "<?= " ?>ListView::widget([
             'dataProvider' => $dataProvider,

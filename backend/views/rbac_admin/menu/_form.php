@@ -38,7 +38,7 @@ $this->registerJs($this->render('_script.js'));
                 $data = Json::decode($model->data);
                 $icon = ArrayHelper::getValue($data, 'icon', '');
                 $left_menu = ArrayHelper::getValue($data, 'group', false);
-                $rule = implode("\r\n", ArrayHelper::getValue($data,'include', ''));
+                $rule = implode("\r\n", ArrayHelper::getValue($data,'include', []));
 
             ?>
             <div class="form-group field-menu-data">

@@ -24,14 +24,18 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view box box-primary">
     <?="<?="?>$this->render('@app/views/layouts/_tab.php')?>
     <div class="box-header">
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Update') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-primary btn-flat']) ?>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Delete') ?>, ['delete', <?= $urlParams ?>], [
-            'class' => 'btn btn-danger btn-flat',
-            'data' => [
-                'confirm' => <?= $generator->generateString('Are you sure you want to delete this item?') ?>,
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?= "<?php if(\mdm\admin\components\Helper::checkRoute('update')) { ?>\n"?>
+            <?= "<?= " ?>Html::a(<?= $generator->generateString('Update') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-primary btn-flat']) ?>
+        <?= "<?php } ?>\n" ?>
+        <?= "<?php if(\mdm\admin\components\Helper::checkRoute('delete')) { ?>\n"?>
+            <?= "<?= " ?>Html::a(<?= $generator->generateString('Delete') ?>, ['delete', <?= $urlParams ?>], [
+                'class' => 'btn btn-danger btn-flat',
+                'data' => [
+                    'confirm' => <?= $generator->generateString('Are you sure you want to delete this item?') ?>,
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?= "<?php } ?>\n" ?>
     </div>
     <div class="box-body table-responsive no-padding">
         <?= "<?= " ?>DetailView::widget([
@@ -45,7 +49,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 } else {
     foreach ($generator->getTableSchema()->columns as $column) {
         $format = stripos($column->name, 'created_at') !== false || stripos($column->name, 'updated_at') !== false ? 'datetime' : $generator->generateColumnFormat($column);
-        echo "                ['label' => '" . $column->name . "', 'format' => 'raw', 'attribute' => '" . $column->name . "', 'value' => function(\$model){return \$model->" . $column->name . ";}],\n";
+        echo "                [\n                    'label' => '" . $column->name . "',\n                    'format' => 'raw',\n                    'attribute' => '" . $column->name . "',\n                    'value' => function(\$model){\n                        return \$model->" . $column->name . ";\n                    }\n                ],\n";
     }
 }
 ?>
