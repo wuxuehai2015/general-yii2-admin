@@ -2,6 +2,7 @@
 namespace backend\controllers;
 
 use backend\models\forms\ChangePassForm;
+use common\components\payment\Payment;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -60,6 +61,23 @@ class SiteController extends BaseController
      */
     public function actionIndex()
     {
+        /* @var $payment Payment*/
+        $payment = Yii::$app->get('payment');
+
+        $payment->setConfig('wx', [
+            'appid' => 'wxb3fxxxxxxxxxxx', // APP APPID
+            'app_id' => 'wxb3fxxxxxxxxxxx', // 公众号 APPID
+            'miniapp_id' => 'wxb3fxxxxxxxxxxx', // 小程序 APPID
+            'mch_id' => '14577xxxx',
+            'key' => 'mF2suE9sU6Mk1Cxxxxxxxxxxx',
+            'notify_url' => 'http://yanda.net.cn/notify.php',
+            'cert_client' => './cert/apiclient_cert.pem', // optional，退款等情况时用到
+            'cert_key' => './cert/apiclient_key.pem',// optional，退款等情况时用到
+        ]);
+
+        $payment->wx->pay();
+
+        die;
         return $this->render('index');
     }
 
