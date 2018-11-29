@@ -19,24 +19,19 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.0",
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "mdmsoft/yii2-admin": "^2.0@dev",
         "dmstr/yii2-adminlte-asset": "^2.0@dev",
-        "kartik-v/yii2-widget-fileinput": "^1.0@dev",
         "kucha/ueditor": "*",
-        "kartik-v/yii2-grid": "@dev",
-        "kartik-v/yii2-editable": "^1.7@dev",
-        "kartik-v/yii2-widget-select2": "@dev",
         "yiisoft/yii2-queue": "^2.0@dev",
         "kartik-v/yii2-dialog": "*",
         "yiisoft/yii2-redis": "^2.0@dev",
         "xiaosier/libweibo": "dev-master",
         "overtrue/easy-sms": "dev-master",
         "kartik-v/yii2-export": "@dev",
-        "lokielse/omnipay-alipay": "dev-master",
         "himiklab/yii2-sitemap-module": "*",
         "overtrue/wechat": "~4.0",
         "yansongda/pay": "dev-master",
@@ -59,7 +54,7 @@
     "repositories": {
         "packagist": {
             "type": "composer",
-            "url": "https://packagist.laravel-china.org"
+            "url": "https://packagist.phpcomposer.com"
         }
     }
 }
