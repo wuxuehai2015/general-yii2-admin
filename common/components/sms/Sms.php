@@ -14,14 +14,16 @@ class Sms extends BaseComponents
 {
     public $config;
 
+    public $handler;
+
     /**
-     * @var EasySms;
+     * @var EasySms|FxSms;
      */
     protected $sms;
 
     public function init()
     {
-        $this->sms = new EasySms($this->config);
+        $this->sms = new $this->handler($this->config);
     }
 
     public function sendCode($mobile, $code, $templateId)
@@ -41,5 +43,10 @@ class Sms extends BaseComponents
             \Yii::error('发送验证码失败:' . $e->getMessage());
             return false;
         }
+    }
+
+    public function send($mobile, $content)
+    {
+        $this->sms->send($mobile, $content);
     }
 }
