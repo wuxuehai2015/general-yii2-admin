@@ -6,10 +6,9 @@
 
 namespace common\components;
 
+use yii\base\Component;
 
-use yii\base\BaseObject;
-
-class BaseComponents extends BaseObject
+class BaseComponents extends Component
 {
     /**
      * @var [] 配置

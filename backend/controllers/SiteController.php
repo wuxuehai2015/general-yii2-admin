@@ -3,6 +3,7 @@ namespace backend\controllers;
 
 use backend\models\forms\ChangePassForm;
 use common\components\payment\Payment;
+use common\components\upload\Upload;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -61,6 +62,12 @@ class SiteController extends BaseController
      */
     public function actionIndex()
     {
+        /* @var $upload Upload*/
+        $upload = Yii::$app->get('upload');
+
+
+
+        print_r($upload->exec());die;
         return $this->render('index');
     }
 
