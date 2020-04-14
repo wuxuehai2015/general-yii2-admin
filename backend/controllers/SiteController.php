@@ -62,12 +62,6 @@ class SiteController extends BaseController
      */
     public function actionIndex()
     {
-        /* @var $upload Upload*/
-        $upload = Yii::$app->get('upload');
-
-
-
-        print_r($upload->exec());die;
         return $this->render('index');
     }
 
